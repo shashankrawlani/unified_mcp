@@ -71,8 +71,8 @@ async def setup_proxy_servers():
 
         except Exception as e:
             print(f"Failed to mount server '{name}': {e}")
-            import traceback
-            traceback.print_exc()
+            print(f"Server '{name}' will be skipped and marked as unavailable")
+            # Continue with other servers instead of failing completely
 
 def signal_handler(signum, frame):
     """Handle shutdown signals"""

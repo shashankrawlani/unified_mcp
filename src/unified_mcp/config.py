@@ -3,6 +3,7 @@ import os
 from typing import Dict, List
 
 from pydantic import BaseModel
+from pydantic_settings import BaseSettings
 
 
 class MCPServerConfig(BaseModel):
@@ -12,12 +13,16 @@ class MCPServerConfig(BaseModel):
     env: Dict[str, str] = {}
     disabled: bool = False
 
-class UnifiedMCPConfig(BaseModel):
+class UnifiedMCPConfig(BaseSettings):
     name: str = "Unified MCP Server"
     version: str = "1.0.0"
-    host: str = os.getenv("HOST", "localhost")
-    port: int = int(os.getenv("PORT", "3000"))
-    debug: bool = os.getenv("DEBUG", "false").lower() == "true"
+    host: str = "localhost"
+    port: int = 3000
+    debug: bool = False
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
 
     def load_mcp_config(self) -> List[MCPServerConfig]:
         """Load MCP servers from mcp.json file"""
@@ -56,10 +61,20 @@ class UnifiedMCPConfig(BaseModel):
             servers.append(MCPServerConfig(
                 name="playwright",
                 command="npx",
-                args=["-y", "@modelcontextprotocol/server-playwright"],
+                args=["@playwright/mcp@latest"],
                 env={
                     "PLAYWRIGHT_HEADLESS": os.getenv("PLAYWRIGHT_HEADLESS", "true"),
                     "PLAYWRIGHT_TIMEOUT": os.getenv("PLAYWRIGHT_TIMEOUT", "30000")
+                }
+            ))
+
+        if os.getenv("ENABLE_CONTEXT7", "true").lower() == "true":
+            servers.append(MCPServerConfig(
+                name="context7",
+                command="npx",
+                args=["@upstash/context7-mcp"],
+                env={
+                    "CONTEXT7_API_KEY": os.getenv("CONTEXT7_API_KEY", "")
                 }
             ))
 
