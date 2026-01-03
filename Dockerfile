@@ -10,12 +10,15 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Copy requirements and install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy application code
+# Copy application code first
 COPY . .
+
+# Install Python dependencies and the package
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir -e .
+
+# Pre-install MCP servers to avoid runtime issues
+RUN npm install -g @playwright/mcp@latest @upstash/context7-mcp
 
 # Create non-root user
 RUN useradd -m -u 1000 mcpuser && chown -R mcpuser:mcpuser /app
@@ -23,4 +26,4 @@ USER mcpuser
 
 EXPOSE 8929
 
-CMD ["python", "main.py"]
+CMD ["python", "src/unified_mcp/main.py"]

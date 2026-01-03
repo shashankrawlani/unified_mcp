@@ -83,7 +83,6 @@ starlette==0.50.0
 typer==0.21.0
 typing-extensions==4.15.0
 typing-inspection==0.4.2
--e file:///Users/shashankrawlani/code/unified_mcp
 urllib3==2.6.2
 uvicorn==0.40.0
 websockets==15.0.1

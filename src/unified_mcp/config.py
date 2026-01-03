@@ -2,7 +2,7 @@ import json
 import os
 from typing import Dict, List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from pydantic_settings import BaseSettings
 
 
@@ -14,15 +14,13 @@ class MCPServerConfig(BaseModel):
     disabled: bool = False
 
 class UnifiedMCPConfig(BaseSettings):
+    model_config = ConfigDict(env_file=".env", env_file_encoding="utf-8")
+    
     name: str = "Unified MCP Server"
     version: str = "1.0.0"
     host: str = "localhost"
     port: int = 8929
     debug: bool = False
-
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
     def load_mcp_config(self) -> List[MCPServerConfig]:
         """Load MCP servers from mcp.json file"""

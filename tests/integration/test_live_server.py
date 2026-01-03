@@ -12,8 +12,8 @@ def mcp_server():
     """Start the unified MCP server for integration testing."""
     # Start server in background
     process = subprocess.Popen(
-        ["uv", "run", "python", "run.py"],
-        cwd=Path(__file__).parent.parent,
+        ["uv", "run", "python", "src/unified_mcp/main.py"],
+        cwd=Path(__file__).parent.parent.parent,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )

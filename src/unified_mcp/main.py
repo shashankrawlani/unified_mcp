@@ -2,12 +2,17 @@ import asyncio
 import json
 import os
 import signal
+import sys
+from pathlib import Path
+
+# Add src to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from fastmcp import FastMCP
 from fastmcp.client import Client
 from fastmcp.client.transports import StdioTransport
 
-from .config import config
+from unified_mcp.config import config
 
 # Create unified MCP server
 mcp = FastMCP("unified-mcp")
@@ -142,40 +147,6 @@ def list_servers() -> str:
         server_info.append(f"{name}: {status} - {endpoint}")
     return "\n".join(server_info)
 
-if __name__ == "__main__":
-    # Setup signal handlers
-    signal.signal(signal.SIGTERM, signal_handler)
-    signal.signal(signal.SIGINT, signal_handler)
-
-    async def main():
-        try:
-            print("Setting up proxy servers...")
-            await setup_proxy_servers()
-            print(f"Starting unified MCP server on {config.host}:{config.port}")
-
-            # Run server with shutdown handling
-            server_task = asyncio.create_task(
-                mcp.run_async(transport="streamable-http", host=config.host, port=config.port)
-            )
-
-            # Wait for shutdown signal
-            await shutdown_event.wait()
-
-            print("Shutting down server...")
-            server_task.cancel()
-            await cleanup_servers()
-            print("Shutdown complete")
-
-        except KeyboardInterrupt:
-            print("\nReceived interrupt, shutting down...")
-            await cleanup_servers()
-        except Exception as e:
-            print(f"Server error: {e}")
-            await cleanup_servers()
-
-    asyncio.run(main())
-
-
 async def main():
     """Main entry point for the unified MCP server."""
     # Setup signal handlers
@@ -206,3 +177,6 @@ async def main():
     except Exception as e:
         print(f"Server error: {e}")
         await cleanup_servers()
+
+if __name__ == "__main__":
+    asyncio.run(main())
