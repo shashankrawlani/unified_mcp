@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  unified-mcp:
+    build: .
+    container_name: unified-mcp-server
+    ports:
+      - "3000:3000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+      - DEBUG=${DEBUG:-false}
+      - ENABLE_PLAYWRIGHT=${ENABLE_PLAYWRIGHT:-true}
+      - ENABLE_FILESYSTEM=${ENABLE_FILESYSTEM:-false}
+      - ENABLE_BRAVE_SEARCH=${ENABLE_BRAVE_SEARCH:-false}
+      - PLAYWRIGHT_HEADLESS=${PLAYWRIGHT_HEADLESS:-true}
+      - PLAYWRIGHT_TIMEOUT=${PLAYWRIGHT_TIMEOUT:-30000}
+      - BRAVE_API_KEY=${BRAVE_API_KEY:-}
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge
