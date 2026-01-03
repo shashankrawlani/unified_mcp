@@ -138,7 +138,7 @@ def list_servers() -> str:
     server_info = []
     for name, server_config in servers.items():
         status = "disabled" if server_config.get("disabled", False) else "enabled"
-        endpoint = f"http://localhost:3000/{name}/mcp" if status == "enabled" else "N/A"
+        endpoint = f"http://localhost:8929/{name}/mcp" if status == "enabled" else "N/A"
         server_info.append(f"{name}: {status} - {endpoint}")
     return "\n".join(server_info)
 

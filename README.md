@@ -37,7 +37,7 @@ uv run main.py
 
 ## Features
 
-- **Single Endpoint**: Access all MCP servers through `http://localhost:3000/mcp`
+- **Single Endpoint**: Access all MCP servers through `http://localhost:8929/mcp`
 - **Tool Prefixing**: All tools are prefixed with server name (e.g., `playwright_navigate`)
 - **Dynamic Mounting**: Add/remove servers by editing `mcp.json` and restarting
 - **Built-in Management**: Use `list_servers` and `list_tools` to inspect configuration
@@ -96,11 +96,11 @@ Use the MCP Inspector to test your server:
 ```bash
 npx @modelcontextprotocol/inspector \
   --transport http \
-  --url http://localhost:3000/mcp
+  --url http://localhost:8929/mcp
 ```
 
 ## Environment Variables
 
 - `HOST` - Server host (default: localhost)
-- `PORT` - Server port (default: 3000)
+- `PORT` - Server port (default: 8929)
 - `DEBUG` - Enable debug logging (default: false)

@@ -49,7 +49,7 @@ Add your server to `mcp.json`:
 - **Enable/Disable**: Set `"disabled": true` to disable a server
 - **Environment Variables**: Use the `env` object to pass environment variables
 - **Tool Prefixing**: All tools are automatically prefixed with server name (e.g., `playwright_navigate`)
-- **Endpoints**: Each server is available at `http://localhost:3000/{server_name}/mcp`
+- **Endpoints**: Each server is available at `http://localhost:8929/{server_name}/mcp`
 
 ## Built-in Tools
 
@@ -63,5 +63,5 @@ Use the MCP Inspector to test your configuration:
 ```bash
 npx @modelcontextprotocol/inspector \
   --transport http \
-  --url http://localhost:3000/mcp
+  --url http://localhost:8929/mcp
 ```

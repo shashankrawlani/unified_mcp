@@ -40,7 +40,7 @@ async def test_list_servers_tool(mcp_server):
 
         # Initialize session
         await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",
@@ -56,7 +56,7 @@ async def test_list_servers_tool(mcp_server):
 
         # Call our custom list_servers tool
         response = await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",
@@ -89,7 +89,7 @@ async def test_list_tools_custom(mcp_server):
 
         # Initialize session
         await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",
@@ -105,7 +105,7 @@ async def test_list_tools_custom(mcp_server):
 
         # Call our custom list_tools tool
         response = await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",
@@ -143,7 +143,7 @@ async def test_disable_enable_server_workflow(mcp_server):
 
         # Initialize session
         await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",
@@ -159,7 +159,7 @@ async def test_disable_enable_server_workflow(mcp_server):
 
         # Disable context7 server
         disable_response = await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",
@@ -182,7 +182,7 @@ async def test_disable_enable_server_workflow(mcp_server):
 
         # Verify server is disabled
         list_response = await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",
@@ -202,7 +202,7 @@ async def test_disable_enable_server_workflow(mcp_server):
 
         # Re-enable context7 server
         enable_response = await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",
@@ -233,7 +233,7 @@ async def test_enable_nonexistent_server(mcp_server):
 
         # Initialize session
         await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",
@@ -249,7 +249,7 @@ async def test_enable_nonexistent_server(mcp_server):
 
         # Try to enable non-existent server
         response = await client.post(
-            "http://localhost:3000/mcp",
+            "http://localhost:8929/mcp",
             headers=session_headers,
             json={
                 "jsonrpc": "2.0",

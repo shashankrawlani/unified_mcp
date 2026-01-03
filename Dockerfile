@@ -21,6 +21,6 @@ COPY . .
 RUN useradd -m -u 1000 mcpuser && chown -R mcpuser:mcpuser /app
 USER mcpuser
 
-EXPOSE 3000
+EXPOSE 8929
 
 CMD ["python", "main.py"]

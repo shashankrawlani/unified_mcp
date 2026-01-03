@@ -5,16 +5,16 @@ services:
     build: .
     container_name: unified-mcp-server
     ports:
-      - "3000:3000"
+      - "8929:8929"
     environment:
       - HOST=0.0.0.0
-      - PORT=3000
+      - PORT=8929
       - DEBUG=${DEBUG:-false}
       - ENABLE_PLAYWRIGHT=${ENABLE_PLAYWRIGHT:-true}
       - ENABLE_FILESYSTEM=${ENABLE_FILESYSTEM:-false}
       - ENABLE_BRAVE_SEARCH=${ENABLE_BRAVE_SEARCH:-false}
       - PLAYWRIGHT_HEADLESS=${PLAYWRIGHT_HEADLESS:-true}
-      - PLAYWRIGHT_TIMEOUT=${PLAYWRIGHT_TIMEOUT:-30000}
+      - PLAYWRIGHT_TIMEOUT=${PLAYWRIGHT_TIMEOUT:-89290}
       - BRAVE_API_KEY=${BRAVE_API_KEY:-}
     volumes:
       - ./logs:/app/logs

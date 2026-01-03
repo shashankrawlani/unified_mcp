@@ -17,7 +17,7 @@ class UnifiedMCPConfig(BaseSettings):
     name: str = "Unified MCP Server"
     version: str = "1.0.0"
     host: str = "localhost"
-    port: int = 3000
+    port: int = 8929
     debug: bool = False
 
     class Config:
